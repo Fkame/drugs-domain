@@ -1,3 +1,4 @@
 rootProject.name = 'drugs-domain'
 
 include 'TimeScheduler'
+include 'MasterParser'
