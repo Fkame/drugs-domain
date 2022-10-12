@@ -1,4 +1,4 @@
-package ru.drugsdomain.maindomain.TimeScheduler.util;
+package ru.drugsdomain.TimeScheduler.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 @Slf4j
 public class ExecutionTimeLogAspect {
 
-    @Around("@annotation(LogExecutionTime)")
+    @Around("@annotation(ru.drugsdomain.TimeScheduler.util.LogExecutionTime)")
     public Object logExecutionTime(ProceedingJoinPoint point) throws Throwable {
         try {
             var start = System.currentTimeMillis();

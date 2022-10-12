@@ -1,4 +1,4 @@
-package ru.drugsdomain.maindomain.TimeScheduler.jobs;
+package ru.drugsdomain.TimeScheduler.jobs;
 
 public interface ScheduledJob {
 

@@ -1,4 +1,4 @@
-package ru.drugsdomain.maindomain.TimeScheduler.util;
+package ru.drugsdomain.TimeScheduler.util;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

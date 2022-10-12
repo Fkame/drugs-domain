@@ -1,4 +1,4 @@
-package ru.drugsdomain.maindomain.TimeScheduler;
+package ru.drugsdomain.TimeScheduler;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

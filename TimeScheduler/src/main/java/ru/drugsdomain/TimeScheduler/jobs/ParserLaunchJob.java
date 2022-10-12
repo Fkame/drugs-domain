@@ -1,7 +1,7 @@
-package ru.drugsdomain.maindomain.TimeScheduler.jobs;
+package ru.drugsdomain.TimeScheduler.jobs;
 
 import org.springframework.scheduling.annotation.Scheduled;
-import ru.drugsdomain.maindomain.TimeScheduler.util.LogExecutionTime;
+import ru.drugsdomain.TimeScheduler.util.LogExecutionTime;
 
 public class ParserLaunchJob implements ScheduledJob {
 
