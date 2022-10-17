@@ -8,9 +8,10 @@ CREATE TABLE IF NOT EXISTS drug (
     prod_company TEXT,
     release_form TEXT,
     purpose TEXT,
-    needRecipe BOOLEAN,
+    need_recipe BOOLEAN,
     manual_ref TEXT,
     update_time TIMESTAMP WITH TIME ZONE
+        DEFAULT CURRENT_TIMESTAMP
 );
 
 --changeset fkame:index_on_name

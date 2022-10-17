@@ -20,17 +20,27 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
 	implementation 'org.springframework.kafka:spring-kafka'
 
+	// database access
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.7.4'
 	implementation 'org.liquibase:liquibase-core:4.17.0'
 	implementation 'org.postgresql:postgresql:42.5.0'
+
+	// Read csv file
+	implementation 'org.apache.commons:commons-csv:1.9.0'
+
+	//implementation 'org.springframework.data:spring-data-jpa:2.7.5'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
+
+	// testing database manipulations
 	testImplementation 'com.h2database:h2:2.1.214'
 
 
