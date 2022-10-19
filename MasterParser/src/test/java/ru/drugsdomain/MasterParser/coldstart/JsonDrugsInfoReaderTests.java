@@ -18,14 +18,14 @@ public class JsonDrugsInfoReaderTests {
         URL dataset = JsonDrugsInfoReaderTests.class.getResource(RELATIVE_CSV_FILE_PATH);
         assertThat(dataset).isNotNull();
 
-        JsonDrugsInfoReader reader = new JsonDrugsInfoReader();
-        List<DrugInfo> drugsInfo = reader.readDataFrom(dataset);
+        JsonDrugsNameReader reader = new JsonDrugsNameReader();
+        List<String> drugsNames = reader.readDataFrom(dataset);
 
-        assertThat(drugsInfo).isNotNull();
-        assertThat(drugsInfo.size() > 0).isTrue();
+        assertThat(drugsNames).isNotNull();
+        assertThat(drugsNames.size() > 0).isTrue();
 
-        for (DrugInfo drugInfo : drugsInfo) {
-            assertThat(drugInfo.getName().contains("[\\;\\,\\.\\(\n]")).isFalse();
+        for (String name : drugsNames) {
+            assertThat(name.contains("[\\;\\,\\.\\(\n]")).isFalse();
         }
     }
 }

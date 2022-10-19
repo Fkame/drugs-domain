@@ -3,6 +3,6 @@ package ru.drugsdomain.MasterParser.coldstart;
 import java.net.URL;
 import java.util.List;
 
-public interface IDrugsInfoReader {
-    List<DrugInfo> readDataFrom(URL fullName);
+public interface IDrugsNameReader {
+    List<String> readDataFrom(URL fullName);
 }

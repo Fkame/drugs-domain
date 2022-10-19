@@ -15,34 +15,26 @@ import java.util.List;
 
 @Slf4j
 @NoArgsConstructor
-public class JsonDrugsInfoReader implements IDrugsInfoReader {
+public class JsonDrugsNameReader implements IDrugsNameReader {
 
-    public List<DrugInfo> readDataFrom(URL fullName) {
+    public List<String> readDataFrom(URL fullName) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        List<DrugInfoJsonDto> drugsInfoDtos = this.readJson(mapper, fullName);
+        List<DrugInfoJsonDto> drugsNamesDtos = this.readJson(mapper, fullName);
 
-        if (drugsInfoDtos == null) {
+        if (drugsNamesDtos == null) {
             return null;
         }
 
-        List<DrugInfo> drugsInfo = new ArrayList<>();
-        for (DrugInfoJsonDto jsonDto : drugsInfoDtos) {
+        List<String> drugsNames = new ArrayList<>();
+        for (DrugInfoJsonDto jsonDto : drugsNamesDtos) {
             String name = this.extractDrugName(jsonDto.getNameContainer());
             if (name == null) {
                 continue;
             }
-            DrugInfo drugInfo = DrugInfo.builder()
-                    .name(name)
-                    .prodCompany(jsonDto.getProdCompany())
-                    .prodCountry(jsonDto.getCountry())
-                    .purpose(jsonDto.getPurpose())
-                    .releaseForm(jsonDto.getFormrelease())
-                    .build();
-
-            drugsInfo.add(drugInfo);
+            drugsNames.add(name);
         }
-        return drugsInfo;
+        return drugsNames;
     }
 
     private String extractDrugName(String container) {
@@ -53,10 +45,8 @@ public class JsonDrugsInfoReader implements IDrugsInfoReader {
         if (containerParts.length < 3)  {
             return null;
         }
-
         String partWithName = containerParts[2];
-        String name = partWithName.split("[,\\.;\\(]")[0];
-        return name;
+        return partWithName.split("[,\\.;\\(]")[0];
     }
 
     private List<DrugInfoJsonDto> readJson(ObjectMapper mapper, URL fullName) {

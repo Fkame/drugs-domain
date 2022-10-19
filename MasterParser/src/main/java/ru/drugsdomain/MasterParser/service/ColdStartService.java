@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.drugsdomain.MasterParser.service.drug.DrugCommandService;
 import ru.drugsdomain.MasterParser.service.drug.DrugQueryService;
-import ru.drugsdomain.MasterParser.coldstart.DrugInfo;
-import ru.drugsdomain.MasterParser.coldstart.JsonDrugsInfoReader;
+import ru.drugsdomain.MasterParser.coldstart.JsonDrugsNameReader;
 
 import java.net.URL;
 import java.util.List;
@@ -29,9 +28,9 @@ public class ColdStartService {
             return;
         }
 
-        JsonDrugsInfoReader reader = new JsonDrugsInfoReader();
-        List<DrugInfo> drugsInfo = reader.readDataFrom(dataset);
-        if (drugsInfo == null) {
+        JsonDrugsNameReader reader = new JsonDrugsNameReader();
+        List<String> drugsNames = reader.readDataFrom(dataset);
+        if (drugsNames == null) {
             log.error("Coldstart dataset [" + RELATIVE_JSON_FILE_PATH +
                     "] after read return null, but must be datalist");
             return;
