@@ -1,5 +1,7 @@
 package ru.drugsdomain.SlaveParser.medicaldict;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,15 +12,17 @@ import ru.drugsdomain.SlaveParser.DrugParamsDto;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MedicalDictParseController {
+
+    private final MedicalDictParserService medicalDictParserService;
 
     @PostMapping(value = "/drugs-from-dict",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<DrugParamsDto>> getDrugsFromDictByNames(
             @RequestBody List<String> names) {
-        MedicalDictParserService parserService = new MedicalDictParserService();
-        List<DrugParamsDto> dtos = parserService.parseByNames(names);
+        List<DrugParamsDto> dtos = medicalDictParserService.parseByNames(names);
 
         if (dtos == null) {
             return ResponseEntity.internalServerError().build();

@@ -2,12 +2,15 @@ package ru.drugsdomain.SlaveParser.medicaldict;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import ru.drugsdomain.SlaveParser.util.SeleniumService;
 
 import java.util.List;
 
@@ -19,9 +22,20 @@ public class MedicalDictParseControllerTest {
 
     private MockMvc mockMvc;
 
+    @Autowired
+    private SeleniumService seleniumService;
+
+    @AfterEach
+    public void endSession() {
+        seleniumService.quit();
+    }
+
+    @Autowired
+    private MedicalDictParseController medicalDictParseController;
+
     @BeforeEach
     public void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(new MedicalDictParseController()).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(medicalDictParseController).build();
     }
 
     private List<String> inputNames = List.of("Депакин Хроно", "Аскорбиновая кислота", "Боярышник");

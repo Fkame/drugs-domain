@@ -1,23 +1,26 @@
 package ru.drugsdomain.SlaveParser.util;
 
 import lombok.SneakyThrows;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+@SpringBootTest
 public class SeleniumServiceManualTests {
 
     public static final String SELENIUM_URL= "https://www.selenium.dev/selenium/web/web-form.html";
 
-    private static SeleniumService seleniumService;
+    @Autowired
+    private SeleniumService seleniumService;
 
-    @BeforeAll
-    public static void setup() {
-        seleniumService = SeleniumService.getService();
+    @BeforeEach
+    public void setup() {
     }
 
-    @AfterAll
-    public static void finish() {
+    @AfterEach
+    public void finish() {
         seleniumService.quit();
     }
 
@@ -32,6 +35,25 @@ public class SeleniumServiceManualTests {
         String cssSelector = ".btn";
         seleniumService.goTo(SELENIUM_URL);
         seleniumService.findElementAndClick(cssSelector);
+        Thread.sleep(1000);
+    }
+
+    @Test
+    @SneakyThrows
+    public void testFindFieldAndWrite() {
+        String cssSelector = "#my-text-id";
+        String textToWrite = "12345";
+        seleniumService.goTo(SELENIUM_URL);
+        seleniumService.findFieldAndWrite(cssSelector, textToWrite);
+        Thread.sleep(1000);
+    }
+
+    @Test
+    @SneakyThrows
+    public void testGetPageSource() {
+        seleniumService.goTo(SELENIUM_URL);
+        String html = seleniumService.getPageSource();
+        assertThat(html.contains("html")).isTrue();
         Thread.sleep(1000);
     }
 }

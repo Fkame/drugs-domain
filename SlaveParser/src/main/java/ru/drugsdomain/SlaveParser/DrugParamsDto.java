@@ -7,7 +7,6 @@ import lombok.Data;
 @Builder
 public class DrugParamsDto {
 
-    private long id;
     private String drugName;
     private String prodCountry;
     private String prodCompany;
@@ -15,4 +14,5 @@ public class DrugParamsDto {
     private String purpose;
     private Boolean needRecipe;
     private String manualRef;
+    private String activeSubstance;
 }
