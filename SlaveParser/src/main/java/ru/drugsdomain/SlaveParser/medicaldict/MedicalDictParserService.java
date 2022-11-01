@@ -32,11 +32,10 @@ public class MedicalDictParserService {
         for (ParsedDataWrap drugPage : dataWraps) {
             DrugParamsDto drugParams = findByName(drugPage.getDrugName(), drugParamsDtos);
 
-            ParsedDataWrap drugPageWithoutNull = parsedPageMapper.mapNullToEmpty(drugPage);
             if (drugParams == null) {
-                drugParamsDtos.add(parsedPageMapper.map(drugPageWithoutNull));
+                drugParamsDtos.add(parsedPageMapper.map(drugPage));
             } else {
-                DrugParamsDto duplicateParams = parsedPageMapper.map(drugPageWithoutNull);
+                DrugParamsDto duplicateParams = parsedPageMapper.map(drugPage);
                 DrugParamsDto mergedParams = drugParamsMerger.mergeByName(drugParams, duplicateParams);
 
                 drugParamsDtos.remove(drugParams);
