@@ -4,12 +4,10 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
-import ru.drugsdomain.SlaveParser.aspect.logging.ToLog;
 
 import java.time.Duration;
 import java.util.List;
@@ -17,9 +15,6 @@ import java.util.List;
 @Component
 public class SeleniumService {
     private WebDriver driver;
-
-    private String currTab;
-    private String prevTab;
 
     public SeleniumService() {
         WebDriverManager.chromedriver().setup();
@@ -37,27 +32,16 @@ public class SeleniumService {
         return firstResult;
     }
 
-    @ToLog
     public WebElement waitForUiElementVisible(String cssSelector) {
         WebElement firstResult = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSelector)));
         return firstResult;
     }
 
-    @ToLog
     public WebElement findWithoutWait(String cssSelector) {
         return driver.findElement(By.cssSelector(cssSelector));
     }
 
-    @ToLog
-    public void createNewTabOnRef(String ref) {
-        prevTab = driver.getWindowHandle();
-        driver.switchTo().newWindow(WindowType.TAB);
-        this.goTo(ref);
-        currTab = driver.getWindowHandle();
-    }
-
-    @ToLog
     public List<WebElement> waitForUiElementsVisible(String cssSelector) {
         List<WebElement> results = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(cssSelector)));
@@ -71,8 +55,8 @@ public class SeleniumService {
     }
 
     public void findElementAndClick(String cssSelector) {
-        WebElement inputField = waitForUiElementVisible(cssSelector);
-        inputField.click();
+        WebElement btn = waitForUiElementClickable(cssSelector);
+        btn.click();
     }
 
     public List<WebElement> findElements(String cssSelector) {
@@ -93,16 +77,6 @@ public class SeleniumService {
 
     public WebDriver getDriver() {
         return driver;
-    }
-
-    public String getCurrentPageHtml() {
-        return driver.getPageSource();
-    }
-
-    @ToLog
-    public void closeCurrentTab() {
-        driver.close();
-        driver.switchTo().window(prevTab);
     }
 
     public void quit() {

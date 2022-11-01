@@ -19,7 +19,7 @@ public class MedicalDictParseController {
 
     @PostMapping(value = "/drugs-from-dict",
             consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+            produces = MediaType.APPLICATION_PROBLEM_JSON_UTF8_VALUE)
     public ResponseEntity<List<DrugParamsDto>> getDrugsFromDictByNames(
             @RequestBody List<String> names) {
         List<DrugParamsDto> dtos = medicalDictParserService.parseByNames(names);

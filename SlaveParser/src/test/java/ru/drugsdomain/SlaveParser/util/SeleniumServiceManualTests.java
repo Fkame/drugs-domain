@@ -43,9 +43,11 @@ public class SeleniumServiceManualTests {
     public void testFindFieldAndWrite() {
         String cssSelector = "#my-text-id";
         String textToWrite = "12345";
+        String check = "#my-check-1";
         seleniumService.goTo(SELENIUM_URL);
         seleniumService.findFieldAndWrite(cssSelector, textToWrite);
-        Thread.sleep(1000);
+        seleniumService.findElementAndClick(check);
+        Thread.sleep(3000);
     }
 
     @Test
