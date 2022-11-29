@@ -36,6 +36,8 @@ dependencies {
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
@@ -43,7 +45,10 @@ dependencies {
 	// testing database manipulations
 	testImplementation 'com.h2database:h2:2.1.214'
 
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
+	testImplementation group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '4.10.0'
+	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
 }
 
 tasks.named('test') {

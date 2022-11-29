@@ -1,6 +1,6 @@
 [
   {
-    "url": "localhost",
+    "host": "localhost",
     "port": 8082,
     "name": "SlaveParser#1"
   }

@@ -1,0 +1,17 @@
+[
+  {
+    "host": "www.com.local.ru",
+    "port": 8082,
+    "name": "SlaveParser#1"
+  },
+  {
+    "host": "localhost",
+    "port": 8081,
+    "name": "SlaveParser#2"
+  },
+  {
+    "host": "192.158.1.38",
+    "port": 8080,
+    "name": "SlaveParser#3"
+  }
+]
