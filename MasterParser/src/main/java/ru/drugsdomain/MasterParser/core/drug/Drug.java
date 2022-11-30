@@ -1,22 +1,21 @@
-package ru.drugsdomain.MasterParser.drug;
+package ru.drugsdomain.MasterParser.core.drug;
 
 import com.sun.istack.NotNull;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import ru.drugsdomain.MasterParser.core.active_substance.ActiveSubstance;
+import ru.drugsdomain.MasterParser.core.drug_in_store.DrugInStore;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Entity
 @Data
 @Table(name = "drug")
 @NoArgsConstructor
-public class DrugEntity {
+public class Drug {
 
     @Id
-    @Setter(AccessLevel.NONE)
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
@@ -31,4 +30,10 @@ public class DrugEntity {
 
     @Setter(AccessLevel.NONE)
     private OffsetDateTime updateTime;
+
+    @OneToMany(mappedBy = "drug", fetch = FetchType.LAZY)
+    private List<DrugInStore> drugInStores;
+
+    @OneToMany(mappedBy = "drug", fetch = FetchType.LAZY)
+    private List<ActiveSubstance> activeSubstances;
 }

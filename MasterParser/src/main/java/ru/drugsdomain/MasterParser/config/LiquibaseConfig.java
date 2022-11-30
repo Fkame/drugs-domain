@@ -1,14 +1,12 @@
 package ru.drugsdomain.MasterParser.config;
 
 import liquibase.integration.spring.SpringLiquibase;
-import lombok.Data;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
 @Configuration
-@Data
 public class LiquibaseConfig {
 
     @Bean

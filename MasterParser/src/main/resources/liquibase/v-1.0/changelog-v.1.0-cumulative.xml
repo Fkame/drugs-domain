@@ -10,6 +10,6 @@
 
     <include relativeToChangelogFile="true" file="active-substance.sql"/>
     <include relativeToChangelogFile="true" file="additional-substance.sql"/>
-    <include relativeToChangelogFile="true" file="medicine-in-store.sql"/>
+    <include relativeToChangelogFile="true" file="drug_in_store.sql"/>
 
 </databaseChangeLog>

@@ -4,8 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.drugsdomain.MasterParser.drug.DrugCommandService;
-import ru.drugsdomain.MasterParser.drug.DrugQueryService;
+import ru.drugsdomain.MasterParser.core.active_substance.ActiveSubstanceCommandService;
+import ru.drugsdomain.MasterParser.core.drug.Drug;
+import ru.drugsdomain.MasterParser.core.drug.DrugCommandService;
+import ru.drugsdomain.MasterParser.core.drug.DrugQueryService;
+import ru.drugsdomain.MasterParser.core.substance.Substance;
+import ru.drugsdomain.MasterParser.core.substance.SubstanceCommandService;
 import ru.drugsdomain.MasterParser.slave_parser.SlaveParserService;
 
 import java.net.URL;
@@ -26,9 +30,11 @@ public class ColdStartService {
 
     private final DrugQueryService drugQueryService;
     private final DrugCommandService drugCommandService;
+    private final SubstanceCommandService substanceCommandService;
+    private final ActiveSubstanceCommandService activeSubstanceCommandService;
     private final IDrugsNamesReader fromJsonFileDrugsNameReader;
-
     private final SlaveParserService slaveParserService;
+    private final InfoExtractor infoExtractor;
 
     public void coldstartIfNeed() {
         if (isColdStart()) {
@@ -64,6 +70,13 @@ public class ColdStartService {
     }
 
     private void saveDataToDb(List<ColdStartInfoDto> drugsInfos) {
+        for (ColdStartInfoDto dto : drugsInfos) {
+            Drug drug = infoExtractor.extractDrugInfo(dto);
+            List<Substance> substances = infoExtractor.extractSubstancesInfo(dto);
 
+            drugCommandService.saveDrug(drug);
+            substanceCommandService.saveSubstances(substances);
+            activeSubstanceCommandService.saveActiveSubstances(drug, substances);
+        }
     }
 }
