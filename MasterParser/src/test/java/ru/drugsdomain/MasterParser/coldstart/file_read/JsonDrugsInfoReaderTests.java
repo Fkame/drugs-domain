@@ -1,4 +1,4 @@
-package ru.drugsdomain.MasterParser.coldstart.json_file_read;
+package ru.drugsdomain.MasterParser.coldstart.file_read;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

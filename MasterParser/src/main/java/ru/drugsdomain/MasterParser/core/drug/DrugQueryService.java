@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -14,12 +14,15 @@ public class DrugQueryService {
 
     private final DrugRepository drugRepository;
 
+    public List<Drug> findAll() {
+        return drugRepository.findAll();
+    }
+
     public int getCountAll() {
         return drugRepository.countAll();
     }
 
-    public Collection<Drug> getByIds(Collection<Long> ids) {
+    public List<Drug> getByIds(List<Long> ids) {
         return drugRepository.findAllById(ids);
     }
-
 }

@@ -15,10 +15,17 @@ public class InfoExtractor {
         drug.setDrugName(dto.getDrugName());
         drug.setProdCountry(dto.getProdCountry());
         drug.setProdCompany(dto.getProdCompany());
-        String releaseForm = String.join("\n", dto.getReleaseForm());
+
+        String releaseForm = null;
+        if (dto.getReleaseForm() != null)
+            releaseForm = String.join("\n", dto.getReleaseForm());
         drug.setReleaseForm(releaseForm);
-        String purposes = String.join("\n", dto.getPurposes());
+
+        String purposes = null;
+        if (dto.getPurposes() != null)
+            purposes = String.join("\n", dto.getPurposes());
         drug.setPurpose(purposes);
+
         drug.setNeedRecipe(dto.getNeedRecipe());
         drug.setManualRef(dto.getManualRef());
 
@@ -26,6 +33,9 @@ public class InfoExtractor {
     }
 
     public List<Substance> extractSubstancesInfo(ColdStartInfoDto dto) {
+        if (dto.getActiveSubstances() == null)
+            return List.of();
+
         ArrayList<Substance> substances = new ArrayList();
         for (String substanceStr : dto.getActiveSubstances()) {
             Substance substance = new Substance();

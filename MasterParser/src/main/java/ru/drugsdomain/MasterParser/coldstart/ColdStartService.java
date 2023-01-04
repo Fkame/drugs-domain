@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.drugsdomain.MasterParser.coldstart.file_read.IDrugsNamesReader;
 import ru.drugsdomain.MasterParser.core.active_substance.ActiveSubstanceCommandService;
 import ru.drugsdomain.MasterParser.core.drug.Drug;
 import ru.drugsdomain.MasterParser.core.drug.DrugCommandService;
@@ -15,15 +16,15 @@ import ru.drugsdomain.MasterParser.slave_parser.SlaveParserService;
 import java.net.URL;
 import java.util.List;
 
-@Service
-@Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 /**
  * Алгоритм холодного старта:
  * 1. считать из файла имена препаратов
  * 2. обратиться к сервису парсеров для загрузки общей информации о препарате из справочника
  * 3. Запись собранной информации в БД
  */
+@Service
+@Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ColdStartService {
 
     public static final String DRUGS_DATASET_PATH = "/coldstart/dataset.json";
@@ -38,10 +39,14 @@ public class ColdStartService {
 
     public void coldstartIfNeed() {
         if (isColdStart()) {
-            List<String> drugsNames = parseDrugsNamesFromDataset();
-            List<ColdStartInfoDto> drugsParams = parseMedicalDictionary(drugsNames);
-            saveDataToDb(drugsParams);
+            coldstart();
         }
+    }
+
+    public void coldstart() {
+        List<String> drugsNames = parseDrugsNamesFromDataset();
+        List<ColdStartInfoDto> drugsParams = slaveParserService.parseMedicalDictionary(drugsNames);
+        saveDataToDb(drugsParams);
     }
 
     private boolean isColdStart() {
@@ -63,10 +68,6 @@ public class ColdStartService {
             throw new RuntimeException(errorMessage);
         }
         return drugsNames;
-    }
-
-    private List<ColdStartInfoDto> parseMedicalDictionary(List<String> drugsNames) {
-        return slaveParserService.parseMedicalDictionary(drugsNames);
     }
 
     private void saveDataToDb(List<ColdStartInfoDto> drugsInfos) {

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -14,7 +14,7 @@ public class DrugCommandService {
 
     private final DrugRepository drugRepository;
 
-    public Collection<Drug> saveDrugs(Collection<Drug> drugsData) {
+    public List<Drug> saveDrugs(List<Drug> drugsData) {
         return drugRepository.saveAll(drugsData);
     }
 

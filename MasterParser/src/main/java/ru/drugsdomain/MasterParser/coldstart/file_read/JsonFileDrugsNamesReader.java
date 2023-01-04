@@ -1,4 +1,4 @@
-package ru.drugsdomain.MasterParser.coldstart.json_file_read;
+package ru.drugsdomain.MasterParser.coldstart.file_read;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import ru.drugsdomain.MasterParser.coldstart.IDrugsNamesReader;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +17,9 @@ import java.util.List;
 @Slf4j
 @NoArgsConstructor
 @Component
+/*
+    Считыватель наименований препаратов из json файла
+ */
 public class JsonFileDrugsNamesReader implements IDrugsNamesReader {
 
     public List<String> readDataFrom(URL fullName) {

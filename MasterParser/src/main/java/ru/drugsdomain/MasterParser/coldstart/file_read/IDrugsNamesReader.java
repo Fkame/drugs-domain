@@ -1,4 +1,4 @@
-package ru.drugsdomain.MasterParser.coldstart;
+package ru.drugsdomain.MasterParser.coldstart.file_read;
 
 import java.net.URL;
 import java.util.List;
