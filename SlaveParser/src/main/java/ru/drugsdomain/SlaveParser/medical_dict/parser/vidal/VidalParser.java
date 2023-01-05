@@ -29,7 +29,6 @@ public class VidalParser {
     public static final String SEARCH_ELEMENTS_SELECTOR = ".products-table-name > a";
 
     private final SeleniumService seleniumService;
-
     private final VidalParserHtml vidalParserHtml;
 
     public List<ParsedDataWrap> findAllWithName(String name) {

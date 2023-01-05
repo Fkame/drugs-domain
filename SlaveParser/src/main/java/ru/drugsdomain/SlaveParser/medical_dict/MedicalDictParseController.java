@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Deprecated
 public class MedicalDictParseController {
 
     private final MedicalDictParserService medicalDictParserService;

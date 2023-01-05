@@ -27,6 +27,11 @@ public class MedicalDictParserService {
         return mergeParsedDrugPagesByName(parsedDrugs);
     }
 
+    /**
+     * Если имя препаратов одинаковое, значит информацию стоит объединить
+     * @param dataWraps
+     * @return
+     */
     public List<DrugParamsDto> mergeParsedDrugPagesByName(List<ParsedDataWrap> dataWraps) {
         List<DrugParamsDto> drugParamsDtos = new ArrayList<>();
         for (ParsedDataWrap drugPage : dataWraps) {

@@ -43,8 +43,9 @@ public class VidalParserHtml {
         if (drugName == null) return null;
 
         String drugNameStr = drugName.text();
-        if (drugNameStr.endsWith(TEMPLATE_SPECIAL_SYMB_TO_CUT)) {
-            drugNameStr = drugNameStr.substring(0, drugNameStr.length() - 1);
+
+        if (drugNameStr.contains(TEMPLATE_SPECIAL_SYMB_TO_CUT)) {
+            drugNameStr = drugNameStr.replace(TEMPLATE_SPECIAL_SYMB_TO_CUT, "");
         }
         return drugNameStr;
     }
@@ -76,7 +77,7 @@ public class VidalParserHtml {
     }
 
     /*
-    Наименование имеет вид (Россия) или (Индия)
+    Наименование имеет вид "(Россия)" или "(Индия)" - нужно убрать скобки
      */
     public String parseProdCountry(Document html) {
         Element prodCountry = html.select(INFO_CREATION_COUNTRY).first();
